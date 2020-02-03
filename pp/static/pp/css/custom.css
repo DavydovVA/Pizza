@@ -2,14 +2,24 @@
     width: 65%;
     margin-top: 10px;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: auto
+}
+
+.body1 {
+    width: 65%;
+    height: 65%;
+    margin-top: 10px;
+    marhin-left: 10px;
+
 }
 
 .card:hover {
     cursor: pointer;
     box-shadow: 10px 10px 10px grey;
 }
-
+.noHover{
+    pointer-events: none;
+}
 .spinner {
     text-align: center;
     display: none;
@@ -17,8 +27,12 @@
 }
 
 .main-content {
-    height: 300px;
-    width: 300px;
+    height: auto;
+    width: auto;
+}
+
+img {
+    height: auto;
 }
 
 .a-card {
@@ -31,6 +45,6 @@
 
 .user-info {
     font-weight: bold;
-    color: rgb(220, 53, 69);
+    color: rgb(49, 220, 51);
     margin-right: 20px;
 }

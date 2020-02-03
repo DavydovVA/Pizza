@@ -1,8 +1,18 @@
 {% extends 'pp/base.html' %}
 
+
 {% block title %}
     List - {{ block.super }}
 {% endblock %}
+
+<style>
+    .body {
+        width: 65%;
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
 
 {% block body %}
     <div class="row row-cols-1 row-cols-4" id="pizz">

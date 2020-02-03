@@ -1,6 +1,13 @@
 {% load image_filters %}
 {% load static %}
 
+<style>
+    img{
+        height: 300px;
+        width: 280px;
+    }
+</style>
+
 {% for pizza in objects %}
     <a href="{{ pizza.get_absolute_url }}">
         <div class="col mb-4">

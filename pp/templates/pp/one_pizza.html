@@ -7,24 +7,8 @@
     Pizza - {{ block.super }}
 {% endblock %}
 
-{% block style %}
-    <style>
-        img {
-            height: 500px;
-            width: 500px;
-        }
-        .body {
-                height: 30%;
-                width: 28%;
-                margin-top: 10px;
-                margin-left: 20px;
-                margin-right: auto
-            }
-    </style>
-{% endblock %}
-
 {% block body %}
-    <div class="card text-white bg-dark">
+    <div class="card text-white bg-dark body1 noHover">
         {% if pizza.image|is_exists %}
             <img src="{{ pizza.image.read|make_src }}" class="card-img-top">
         {% else %}
