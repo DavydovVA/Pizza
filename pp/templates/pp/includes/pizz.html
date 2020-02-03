@@ -1,0 +1,18 @@
+{% load image_filters %}
+{% load static %}
+
+{% for pizza in objects %}
+    <a href="{{ pizza.get_absolute_url }}">
+        <div class="col mb-4">
+            <div class="card text-white bg-dark">
+                {% if pizza.image|is_exists %}
+                    <img src="{{ pizza.image.read|make_src }}" class="card-img-top main-content">
+                {% else %}
+                    <img src="{% static 'pp/image/not_found.png' %}" class="card-img-top main-content">
+                {% endif %}
+                <div class="card-body">
+                    <h8 class="card-title">{{ pizza.title|truncatechars:30 }}</h8>
+                </div>
+            </div>
+        </div>
+{% endfor %}

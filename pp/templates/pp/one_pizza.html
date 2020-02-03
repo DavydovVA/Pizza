@@ -1,0 +1,38 @@
+{% extends 'pp/base.html' %}
+
+{% load image_filters %}
+{% load static %}
+
+{% block title %}
+    Pizza - {{ block.super }}
+{% endblock %}
+
+{% block style %}
+    <style>
+        img {
+            height: 500px;
+            width: 500px;
+        }
+        .body {
+                height: 30%;
+                width: 28%;
+                margin-top: 10px;
+                margin-left: 20px;
+                margin-right: auto
+            }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="card text-white bg-dark">
+        {% if pizza.image|is_exists %}
+            <img src="{{ pizza.image.read|make_src }}" class="card-img-top">
+        {% else %}
+            <img src="{% static 'pp/image/not_found.png' %}" class="card-img-top">
+        {% endif %}
+        <div class="col mb-4">
+            <h5 class="card-title">{{ pizza.title }}</h5>
+            <p class="card-text">{{ pizza.body }}</p>
+        </div>
+    </div>
+{% endblock %}
