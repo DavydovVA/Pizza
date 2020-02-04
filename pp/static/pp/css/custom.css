@@ -2,15 +2,14 @@
     width: 65%;
     margin-top: 10px;
     margin-left: auto;
-    margin-right: auto
+    margin-right: auto;
 }
 
 .body1 {
-    width: 65%;
-    height: 65%;
+    width: 45%;
+    height: 45%;
     margin-top: 10px;
-    marhin-left: 10px;
-
+    margin-left: 25%;
 }
 
 .card:hover {
@@ -47,4 +46,9 @@ img {
     font-weight: bold;
     color: rgb(49, 220, 51);
     margin-right: 20px;
+}
+
+.hover {
+    cursor: pointer;
+    box-shadow: 10px 10px 10px grey;
 }

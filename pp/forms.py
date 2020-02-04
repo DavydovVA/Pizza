@@ -7,11 +7,12 @@ from pp.models import Pizza
 class PizzaForm(forms.ModelForm):
     class Meta:
         model = Pizza
-        fields = ['title', 'body', 'image']
+        fields = ['title', 'body', 'price', 'image']
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
+            'price': forms.TextInput(attrs={'class': 'form-control'}),
             'image': forms.ClearableFileInput(attrs={'class': 'form-control'})
         }
 

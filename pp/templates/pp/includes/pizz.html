@@ -9,17 +9,27 @@
 </style>
 
 {% for pizza in objects %}
-    <a href="{{ pizza.get_absolute_url }}">
-        <div class="col mb-4">
-            <div class="card text-white bg-dark">
-                {% if pizza.image|is_exists %}
-                    <img src="{{ pizza.image.read|make_src }}" class="card-img-top main-content">
-                {% else %}
-                    <img src="{% static 'pp/image/not_found.png' %}" class="card-img-top main-content">
-                {% endif %}
-                <div class="card-body">
-                    <h8 class="card-title">{{ pizza.title|truncatechars:30 }}</h8>
-                </div>
+    <div class="col mb-4">
+        <div class="card text-white bg-dark">
+            {% if pizza.image|is_exists %}
+                <a href="{{ pizza.get_absolute_url }}">
+                    <img src="{{ pizza.image.read|make_src }}" class="card-img-top main-content" style="width: 100%">
+                </a>
+            {% else %}
+                <a href="{{ pizza.get_absolute_url }}">
+                    <img src="{% static 'pp/image/not_found.png' %}" class="card-img-top main-content"
+                         style="width: 100%">
+                </a>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title" align="center">{{ pizza.title|truncatechars:20 }}</h5>
+                <a href="{% url 'accounts:logout' %}">
+                    <button type="button" class="btn btn-outline-success" formaction="{% url 'accounts:logout' %}"
+                            style="height: 50px; width: 60%; margin-left: 20%;">{{ pizza.price }}$
+                    </button>
+                </a>
             </div>
         </div>
+    </div>
 {% endfor %}
+

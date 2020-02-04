@@ -36,6 +36,7 @@ class Post(models.Model):
 
 class Pizza(Post):
     body = models.TextField(blank=True, db_index=True)
+    price = models.TextField(blank=True, default=None)
     image = models.ImageField(default=None, upload_to=Post.upload_to)
 
     def get_absolute_url(self):
