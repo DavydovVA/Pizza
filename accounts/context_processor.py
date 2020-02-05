@@ -1,8 +1,8 @@
-from accounts.forms import MemAuthenticationForm, MemUserCreationForm
+from accounts.forms import PizzaAuthenticationForm, PizzaUserCreationForm
 
 
 def account_context(request):
     return {
-        'login_form': MemAuthenticationForm(),
-        'register_form': MemUserCreationForm()
+        'login_form': PizzaAuthenticationForm(),
+        'register_form': PizzaUserCreationForm()
     }

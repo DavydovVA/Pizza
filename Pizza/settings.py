@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pp.apps.PpConfig',
-    'accounts'
+    'accounts.apps.AccountsConfig'
 ]
 
 MIDDLEWARE = [
@@ -137,3 +137,5 @@ LOGOUT_REDIRECT_URL = '/pp/'
 
 
 NUMBER_PER_PAGE = 12
+
+AUTH_USER_MODEL = 'accounts.User'
