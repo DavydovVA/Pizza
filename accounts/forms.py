@@ -16,14 +16,9 @@ class PizzaUserCreationForm(UserCreationForm):
         fields = ('email', 'first_name', 'last_name', 'phone_num', 'address')
 
         widgets = {
-            'email': forms.EmailInput(
-                attrs={
-                    'class': 'form-control',
-                    'required': 'required'
-                }
-            ),
-            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'required': 'required'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control', 'required': 'required'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control', 'required': 'required'}),
             'phone_num': forms.TextInput(attrs={'class': 'form-control'}),
             'address': forms.TextInput(attrs={'class': 'form-control'})
         }
