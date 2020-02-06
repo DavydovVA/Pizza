@@ -10,15 +10,14 @@ class Cart(object):
             cart = self.session[settings.CART_SESSION_ID] = {}
         self.cart = cart
 
-    def add(self, product, quantity=1, update_quantity=False):
+    def add(self, product, quantity=1, update_quantity=True):
         product_id = str(product.id)
 
         if product_id not in self.cart:
             self.cart[product_id] = {'quantity': 0}
         if update_quantity:
             self.cart[product_id]['quantity'] = quantity
-        else:
-            self.cart[product_id]['quantity'] += quantity
+
         self.save()
 
     def save(self):
@@ -35,10 +34,15 @@ class Cart(object):
         product_ids = self.cart.keys()
         products = Product.objects.filter(id__in=product_ids)
         for product in products:
-            pr = product
-            q = self.cart[str(product.id)]['quantity']
-            yield pr, q
+            self.cart[str(product.id)]['product'] = product
+
+        for item in self.cart.values():
+            item['price'] = item['product'].price
+            item['total_price'] = float(item['product'].price) * float(item['quantity'])
+            yield item
 
     def clear(self):
         del self.session[settings.CART_SESSION_ID]
         self.session.modified = True
+
+

@@ -23,5 +23,5 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html')),
     path('pp/', include(('pp.urls', 'pp'), namespace='pp')),
     path('', include(('accounts.urls', 'accounts'), namespace='accounts')),
-    path('cart/', include(('cart.urls', 'cart'), namespace='cart')),
+    path('', include(('cart.urls', 'cart'), namespace='cart')),
 ]

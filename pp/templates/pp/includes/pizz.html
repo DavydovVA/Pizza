@@ -2,7 +2,7 @@
 {% load static %}
 
 <style xmlns="http://www.w3.org/1999/html">
-    img{
+    img {
         height: 300px;
         width: 280px;
     }
@@ -27,11 +27,10 @@
                     <form action="{% url 'cart:add_to_cart' pizza.id %}" method="post">
                         {% csrf_token %}
                         <input type="submit" class="btn btn-outline-success" value="{{ pizza.price }}$"
-                               id="{{ pizza.id }}"
                                style="height: 50px; width: 60%; margin-left: 20%; pointer-events: visible">
                     </form>
                 {% else %}
-                    <input type="submit" class="btn btn-outline-success" value="{{ pizza.price }}$" id="{{ pizza.id }}"
+                    <input type="submit" class="btn btn-outline-success" value="{{ pizza.price }}$"
                            style="height: 50px; width: 60%; margin-left: 20%; pointer-events: visible">
                 {% endif %}
             </div>

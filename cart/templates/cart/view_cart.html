@@ -6,12 +6,22 @@
 {% endblock %}
 
 {% block body %}
-    {% for item, quan in cart %}
-        <tr>
-            <td>{{ item.title }}</td>
-            <td> {{ item.price }}</td>
-            {{ quan }}
-            {{ user.first_name }}
-        </tr>
+    {% for item in cart %}
+        {% with product=item.product %}
+            {{ product.title }} <br>
+            {{ product.price }} <br>
+        {% endwith %}
+        <form action="{% url "cart:update_quan" item.product.id %}" method="post">
+            {% csrf_token %}
+            <div style="width: 10px;">{{ item.pizza_form.quantity }}</div>
+        </form>
+        {{ item.total_price }}<br><br>
     {% endfor %}
+    <form action="{% url "cart:change_user_info" %}" method="post">
+        {% csrf_token %}
+        {{ user_form.phone_num }}
+        {{ user_form.address }}
+        <input type="submit" value="Submit">
+    </form>
 {% endblock %}
+
