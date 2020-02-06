@@ -17,7 +17,6 @@ class ViewPizza(View):
     @staticmethod
     def get(request, slug):
         pizza = get_object_or_404(Pizza, slug=slug)
-
         return render(
             request,
             'pp/one_pizza.html',

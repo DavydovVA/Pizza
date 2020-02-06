@@ -1,0 +1,17 @@
+{% extends 'pp/base.html' %}
+{% load static %}
+
+{% block title %}
+    Pizza - {{ block.super }}
+{% endblock %}
+
+{% block body %}
+    {% for item, quan in cart %}
+        <tr>
+            <td>{{ item.title }}</td>
+            <td> {{ item.price }}</td>
+            {{ quan }}
+            {{ user.first_name }}
+        </tr>
+    {% endfor %}
+{% endblock %}

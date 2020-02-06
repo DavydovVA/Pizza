@@ -16,11 +16,16 @@
         {% endif %}
         <div class="col mb-4">
             <h4 class="card-title" align="center">{{ pizza.title }}</h4>
-            <a href="{% url 'accounts:logout' %}">
-                <button type="button" class="btn btn-outline-success" formaction="{% url 'accounts:logout' %}"
-                        style="height: 50px; width: 60%; margin-left: 20%; pointer-events: visible">{{ pizza.price }}$
-                </button>
-            </a>
+            {% if user.is_authenticated %}
+                <form action="{% url 'cart:add_to_cart' pizza.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-outline-success" value="{{ pizza.price }}$" id="{{ pizza.id }}"
+                           style="height: 50px; width: 60%; margin-left: 20%; pointer-events: visible">
+                </form>
+            {% else %}
+                    <input type="submit" class="btn btn-outline-success" value="{{ pizza.price }}$" id="{{ pizza.id }}"
+                           style="height: 50px; width: 60%; margin-left: 20%; pointer-events: visible">
+            {% endif %}
             <h5 class="card-title" align="left" style="margin-top: 10px;">Описание:</h5>
             <p class="card-text">{{ pizza.body }}</p>
         </div>
