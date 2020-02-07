@@ -39,6 +39,7 @@ class Cart(object):
         for item in self.cart.values():
             item['price'] = item['product'].price
             item['total_price'] = float(item['product'].price) * float(item['quantity'])
+            item['image'] = item['product'].image
             yield item
 
     def clear(self):

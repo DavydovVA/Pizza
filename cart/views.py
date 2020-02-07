@@ -65,6 +65,8 @@ class AcceptOrder(View):
         for item in history_list:
             pizza_list.append(item.split('\n'))
 
+        cart.clear()
+
         return render(request, 'cart/checklist.html', context={'history': his, 'pizza_list': pizza_list})
 
 
