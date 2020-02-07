@@ -1,0 +1,20 @@
+{% extends 'pp/base.html' %}
+{% load static %}
+
+{% block title %}
+    Pizza - {{ block.super }}
+{% endblock %}
+
+{% block body %}
+    {% for item in member_list %}
+        {% for row in item %}
+            {% for part in row %}
+                {{ part }} <br>
+            {% endfor %} <br>
+        {% endfor %}
+        ------------------- <br>
+    {% endfor %}
+    <form action="{% url "pp:index" %}">
+        <input type="submit" value="Continue">
+    </form>
+{% endblock %}

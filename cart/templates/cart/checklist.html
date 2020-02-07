@@ -1,0 +1,22 @@
+{% extends 'pp/base.html' %}
+{% load static %}
+
+{% block title %}
+    Pizza - {{ block.super }}
+{% endblock %}
+
+{% block body %}
+    <p>Name: {{ history.user.get_full_name}}</p> <br>
+    {% for item in pizza_list %}
+        {% for i in item %}
+            {{ i }} <br>
+        {% endfor %} <br>
+    {% endfor %} <br>
+
+    <p>Address: {{ history.user.address }}</p>
+
+    <p>Date: {{ history.created_at }}</p>
+    <form action="{% url "pp:index" %}">
+        <input type="submit" value="Continue">
+    </form>
+{% endblock %}

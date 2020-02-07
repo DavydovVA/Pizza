@@ -5,22 +5,34 @@
     Pizza - {{ block.super }}
 {% endblock %}
 
+
 {% block body %}
     {% for item in cart %}
         {% with product=item.product %}
-            {{ product.title }} <br>
-            {{ product.price }} <br>
+            <p>Pizza: {{ product.title }}</p>
+            <p>Price: {{ product.price }}</p>
         {% endwith %}
         <form action="{% url "cart:update_quan" item.product.id %}" method="post">
             {% csrf_token %}
-            <div style="width: 10px;">{{ item.pizza_form.quantity }}</div>
+            <p style="width: 60px;">Quantity: {{ item.pizza_form.quantity}}</p>
         </form>
-        {{ item.total_price }}<br><br>
-    {% endfor %}
-    <form action="{% url "cart:change_user_info" %}" method="post">
+        <p>Sum: {{ item.total_price }}</p>
+        <form action="{% url "cart:remove" item.product.id %}" method="post">
         {% csrf_token %}
-        {{ user_form.phone_num }}
-        {{ user_form.address }}
+        <input type="submit" value="Remove">
+    </form> <br>
+    {% endfor %}
+    <form action="{% url "cart:accept_order" %}" method="post">
+        {% csrf_token %}
+        <div style="width: 900px;">
+            <div style="display: inline-block">
+                Phone Number: {{ user_form.phone_num }}
+            </div>
+            <div style="width: 400px; display: inline-block"">
+                Address:      {{ user_form.address }}
+            </div>
+        </div>
+        <br>
         <input type="submit" value="Submit">
     </form>
 {% endblock %}
