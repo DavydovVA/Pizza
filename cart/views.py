@@ -70,18 +70,26 @@ class AcceptOrder(View):
         return render(request, 'cart/checklist.html', context={'history': his, 'pizza_list': pizza_list})
 
 
-class ViewOrder(View):
+class ViewHistory(View):
     @staticmethod
     def get(request):
-        his = get_list_or_404(History, user=request.user)
+        try:
+            his = get_list_or_404(History, user=request.user)
+            print(his)
+        except:
+            his = False
 
         member_list = list()
-        for member in his:
-            pizza_list = list()
-            tmp = member.pizza_list.split('\n\n')[:-1]
-            for i in tmp:
-                pizza_list.append(i.split('\n'))
-            member_list.append(pizza_list)
+        if his:
+
+            for member in his:
+                pizza_list = list()
+                tmp = member.pizza_list.split('\n\n')[:-1]
+                for i in tmp:
+                    pizza_list.append(i.split('\n'))
+                member_list.append(pizza_list)
+
+            return render(request, 'cart/history.html', context={'member_list': member_list})
 
         return render(request, 'cart/history.html', context={'member_list': member_list})
 

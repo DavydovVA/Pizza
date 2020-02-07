@@ -6,14 +6,18 @@
 {% endblock %}
 
 {% block body %}
-    {% for item in member_list %}
-        {% for row in item %}
-            {% for part in row %}
-                {{ part }} <br>
-            {% endfor %} <br>
+    {% if member_list %}
+        {% for item in member_list %}
+            {% for row in item %}
+                {% for part in row %}
+                    {{ part }} <br>
+                {% endfor %} <br>
+            {% endfor %}
+            ------------------- <br>
         {% endfor %}
-        ------------------- <br>
-    {% endfor %}
+    {% else %}
+        You purchase History is Empty.
+    {% endif %}
     <form action="{% url "pp:index" %}">
         <input type="submit" value="Continue">
     </form>

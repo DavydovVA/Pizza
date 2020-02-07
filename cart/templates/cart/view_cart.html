@@ -45,7 +45,9 @@
             ">
             Address: {{ user_form.address }}
         </div>
-        <input type="submit" class="btn btn-primary" value="Submit">
+        {% if cart %}
+            <input type="submit" class="btn btn-primary" value="Submit">
+        {% endif %}
     </form>
 {% endblock %}
 

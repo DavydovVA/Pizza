@@ -6,12 +6,17 @@ class Cart(object):
     def __init__(self, request):
         self.session = request.session
         cart = self.session.get(settings.CART_SESSION_ID)
+        self._status = True
+
         if not cart:
             cart = self.session[settings.CART_SESSION_ID] = {}
+            self._status = False
         self.cart = cart
 
     def add(self, product, quantity=1, update_quantity=True):
         product_id = str(product.id)
+
+        self._status = True
 
         if product_id not in self.cart:
             self.cart[product_id] = {'quantity': 0}
@@ -41,6 +46,10 @@ class Cart(object):
             item['total_price'] = float(item['product'].price) * float(item['quantity'])
             item['image'] = item['product'].image
             yield item
+
+    def __bool__(self):
+        return self._status
+
 
     def clear(self):
         del self.session[settings.CART_SESSION_ID]
