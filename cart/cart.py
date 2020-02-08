@@ -43,7 +43,7 @@ class Cart(object):
 
         for item in self.cart.values():
             item['price'] = item['product'].price
-            item['total_price'] = float(item['product'].price) * float(item['quantity'])
+            item['total_price'] = round(float(item['product'].price) * float(item['quantity']), 2)
             item['image'] = item['product'].image
             yield item
 
@@ -60,7 +60,7 @@ class Cart(object):
         for item in self.cart.values():
             total_cart_price += float(item['product'].price) * int(item['quantity'])
 
-        return total_cart_price
+        return round(total_cart_price, 2)
 
     def clear(self):
         del self.session[settings.CART_SESSION_ID]

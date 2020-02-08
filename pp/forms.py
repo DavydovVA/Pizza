@@ -16,10 +16,18 @@ class PizzaForm(forms.ModelForm):
             'image': forms.ClearableFileInput(attrs={'class': 'form-control'})
         }
 
-    def clean_title(self):
-        title = self.cleaned_data['title']
+    def clean_price(self):
+        price = self.cleaned_data['price']
 
-        if title.isdigit():
-            raise ValidationError('Title must contain no numeric characters.')
+        chars = ',.0123456789'
+        for i in price:
+            if i not in chars:
+                raise ValidationError('Price must contain only numeric characters.')
 
-        return title
+        if ',' in price:
+            price = price.replace(',', '.')
+
+        if '.' not in price:
+            price += '.0'
+
+        return price
