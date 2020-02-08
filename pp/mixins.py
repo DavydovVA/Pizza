@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.db.models import Q
 
 
-class ListObjectsMixin():
+class ListObjectsMixin:
     model = None
     template_name = None
     template_include = None

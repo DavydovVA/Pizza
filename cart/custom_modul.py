@@ -1,14 +1,12 @@
 def create_info_for_history(cart):
     string = ''
-    total_price = 0
     for item in cart:
         title = item['product'].title
         price = float(item['product'].price)
         quan = int(item['quantity'])
         string += f"Pizza: {title}\nPrice: {price}$\nQuantity: {quan}\n\n"
-        total_price += price * quan
 
-    return string, f'{total_price}$'
+    return string
 
 
 class SendInfo:

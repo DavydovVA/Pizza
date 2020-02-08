@@ -7,6 +7,7 @@ from pp.models import Pizza
 from .models import History
 from .forms import *
 from .custom_modul import *
+from .email import email
 
 
 class AddToCart(View):
@@ -40,10 +41,10 @@ class AcceptOrder(View):
             form.save()
 
         cart = Cart(request)
-        pizza_list, total_price = create_info_for_history(cart)
+        pizza_list = create_info_for_history(cart)
         total_cart_price = cart.get_total_cart_price()
 
-        his = History(user=request.user, pizza_list=pizza_list, total_price=total_price, address=request.user.address,
+        his = History(user=request.user, pizza_list=pizza_list, address=request.user.address,
                       total_cart_price=total_cart_price)
         his.save()
 
@@ -57,6 +58,8 @@ class AcceptOrder(View):
 
         cart.clear()
 
+        email(request, his)
+
         return render(request, 'cart/checklist.html',
                       context={'history': his, 'pizza_list': pizza_list, 'total_cart_price': total_cart_price})
 
@@ -65,7 +68,7 @@ class ViewHistory(LoginRequiredMixin, View):
     @staticmethod
     def get(request):
         try:
-            his = get_list_or_404(History, user=request.user)
+            his = get_list_or_404(History.objects.all().order_by('-created_at'), user=request.user)
         except Http404:
             his = list()
 
