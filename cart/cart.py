@@ -50,6 +50,17 @@ class Cart(object):
     def __bool__(self):
         return self._status
 
+    def get_total_cart_price(self):
+        product_ids = self.cart.keys()
+        products = Product.objects.filter(id__in=product_ids)
+        for product in products:
+            self.cart[str(product.id)]['product'] = product
+
+        total_cart_price = 0
+        for item in self.cart.values():
+            total_cart_price += float(item['product'].price) * int(item['quantity'])
+
+        return total_cart_price
 
     def clear(self):
         del self.session[settings.CART_SESSION_ID]

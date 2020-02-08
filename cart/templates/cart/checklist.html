@@ -12,9 +12,8 @@
             {{ i }} <br>
         {% endfor %} <br>
     {% endfor %} <br>
-
+    <p>Total Price: {{ total_cart_price }}$</p>
     <p>Address: {{ history.user.address }}</p>
-
     <p>Date: {{ history.created_at }}</p>
     <form action="{% url "pp:index" %}">
         <input type="submit" value="Continue">

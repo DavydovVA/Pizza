@@ -1,22 +1,11 @@
-from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
+from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404, Http404
 from django.views import View
+
 from cart.cart import Cart
 from pp.models import Pizza
-from .forms import *
 from .models import History
-
-
-def create_info_for_history(cart):
-    string = ''
-    total_price = 0
-    for item in cart:
-        title = item['product'].title
-        price = float(item['product'].price)
-        quan = int(item['quantity'])
-        string += f"Pizza: {title}\nPrice: {price}$\nQuantity: {quan}\n\n"
-        total_price += price * quan
-
-    return string, f'{total_price}$'
+from .forms import *
+from .custom_modul import *
 
 
 class AddToCart(View):
@@ -45,18 +34,16 @@ class ChangeQuan(View):
 class AcceptOrder(View):
     @staticmethod
     def post(request):
-        '''
-        accepts changes in user
-        and saves all order info in history
-        '''
         form = UserForm(data=request.POST, instance=request.user)
         if form.is_valid():
             form.save()
 
         cart = Cart(request)
         pizza_list, total_price = create_info_for_history(cart)
+        total_cart_price = cart.get_total_cart_price()
 
-        his = History(user=request.user, pizza_list=pizza_list, total_price=total_price)
+        his = History(user=request.user, pizza_list=pizza_list, total_price=total_price,
+                      total_cart_price=total_cart_price)
         his.save()
 
         history_list = his.pizza_list.split('\n\n')[:-1]
@@ -65,9 +52,12 @@ class AcceptOrder(View):
         for item in history_list:
             pizza_list.append(item.split('\n'))
 
+        total_cart_price = cart.get_total_cart_price()
+
         cart.clear()
 
-        return render(request, 'cart/checklist.html', context={'history': his, 'pizza_list': pizza_list})
+        return render(request, 'cart/checklist.html',
+                      context={'history': his, 'pizza_list': pizza_list, 'total_cart_price': total_cart_price})
 
 
 class ViewHistory(View):
@@ -75,24 +65,21 @@ class ViewHistory(View):
     def get(request):
         try:
             his = get_list_or_404(History, user=request.user)
-            print(his)
-        except:
-            his = False
+        except Http404:
+            his = list()
 
         member_list = list()
         if his:
-
             for member in his:
                 pizza_list = list()
                 tmp = member.pizza_list.split('\n\n')[:-1]
                 for i in tmp:
                     pizza_list.append(i.split('\n'))
-                member_list.append(pizza_list)
+                member_list.append(SendInfo(pizza_list, member.total_cart_price, member.created_at))
 
             return render(request, 'cart/history.html', context={'member_list': member_list})
 
-        return render(request, 'cart/history.html', context={'member_list': member_list})
-
+        return render(request, 'cart/history.html', context={'member_list': False})
 
 
 class ViewCart(View):
