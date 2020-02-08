@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404, Http404
 from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from cart.cart import Cart
 from pp.models import Pizza
@@ -60,7 +61,7 @@ class AcceptOrder(View):
                       context={'history': his, 'pizza_list': pizza_list, 'total_cart_price': total_cart_price})
 
 
-class ViewHistory(View):
+class ViewHistory(LoginRequiredMixin, View):
     @staticmethod
     def get(request):
         try:
@@ -82,7 +83,7 @@ class ViewHistory(View):
         return render(request, 'cart/history.html', context={'member_list': False})
 
 
-class ViewCart(View):
+class ViewCart(LoginRequiredMixin, View):
     @staticmethod
     def get(request):
         cart = Cart(request)

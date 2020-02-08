@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.shortcuts import render
+from django.db.models import Q
 
 
 class ListObjectsMixin():
@@ -11,6 +12,11 @@ class ListObjectsMixin():
 
     def get(self, request):
         objects = self.model.objects.all().order_by('-created_at')
+
+        query_search = request.GET.get('search', '')
+        objects = objects.filter(
+            Q(title__icontains=query_search) | Q(body__icontains=query_search)
+        )
 
         paginator = Paginator(objects, self.number_per_page)
         page = int(request.GET.get('page', 1))
