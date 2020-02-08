@@ -42,7 +42,7 @@ class AcceptOrder(View):
         pizza_list, total_price = create_info_for_history(cart)
         total_cart_price = cart.get_total_cart_price()
 
-        his = History(user=request.user, pizza_list=pizza_list, total_price=total_price,
+        his = History(user=request.user, pizza_list=pizza_list, total_price=total_price, address=request.user.address,
                       total_cart_price=total_cart_price)
         his.save()
 
@@ -75,7 +75,7 @@ class ViewHistory(View):
                 tmp = member.pizza_list.split('\n\n')[:-1]
                 for i in tmp:
                     pizza_list.append(i.split('\n'))
-                member_list.append(SendInfo(pizza_list, member.total_cart_price, member.created_at))
+                member_list.append(SendInfo(pizza_list, member.total_cart_price, member.address, member.created_at))
 
             return render(request, 'cart/history.html', context={'member_list': member_list})
 

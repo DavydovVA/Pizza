@@ -2,25 +2,34 @@
 {% load static %}
 
 {% block title %}
-    Pizza - {{ block.super }}
+    History - {{ block.super }}
 {% endblock %}
 
 {% block body %}
     {% if member_list %}
         {% for item in member_list %}
-            {% for row in item.pizza_list %}
-                {% for part in row %}
-                    {{ part }} <br>
-                {% endfor %} <br>
-            {% endfor %}
-            <p>Total Price: {{ item.total_cart_price}}$</p>
-            <p>{{ item.created_at }}</p>
-            ------------------- <br>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 20%">
+                    {{ item.created_at }}
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2" style="width: 20%">
+                    {% for row in item.pizza_list %}
+                        {% for part in row %}
+                            {{ part }} <br>
+                        {% endfor %} <br>
+                    {% endfor %}
+                    Total Price: {{ item.total_cart_price }}$ <br>
+                    Address: {{ item.address }}
+                </div>
+            </div> <br>
         {% endfor %}
     {% else %}
         You purchase History is Empty.
     {% endif %}
     <form action="{% url "pp:index" %}">
-        <input type="submit" value="Continue">
+        <input type="submit" class="btn btn-dark" value="Continue">
     </form>
 {% endblock %}
+
+<button type="button">Secondary</button>

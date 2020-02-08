@@ -3,7 +3,7 @@
 {% load image_filters %}
 
 {% block title %}
-    Pizza - {{ block.super }}
+    Cart - {{ block.super }}
 {% endblock %}
 
 
@@ -15,19 +15,23 @@
                     {% with product=item.product %}
                         <div style="height: 60px; margin-left: 5px">Pizza: {{ product.title }}</div>
                         <div style="margin-left: 5px">Price: {{ product.price }}$</div>
-                        <img src="{{ item.image.read|make_src }}" class="card-img-top main-content" style="width: 50%;margin-left: 25%;">
+                        <img src="{{ item.image.read|make_src }}" class="card-img-top main-content"
+                             style="width: 50%;margin-left: 25%;">
                     {% endwith %}
                     <form action="{% url "cart:update_quan" item.product.id %}" method="post">
                         {% csrf_token %}
-                        <p style="width: 60px; pointer-events: visible; margin-left: 5px">Quantity {{ item.pizza_form.quantity }}</p>
+                        <p style="width: 60px; pointer-events: visible; margin-left: 5px">
+                            Quantity {{ item.pizza_form.quantity }}</p>
                     </form>
                     <div>
-                        <div style="display: inline-block; width: 50%; margin-left: 5px;">Sum: {{ item.total_price }}$</div>
+                        <div style="display: inline-block; width: 50%; margin-left: 5px;">Sum: {{ item.total_price }}$
+                        </div>
                         <div style="display: inline-block; width: 15%">
                             <form action="{% url "cart:remove" item.product.id %}" method="post"
                                   style="margin-left: 65%; margin-bottom: 10px;">
                                 {% csrf_token %}
-                                <input type="submit" class="btn btn-danger" style="pointer-events: visible;" value="Remove">
+                                <input type="submit" class="btn btn-danger" style="pointer-events: visible;"
+                                       value="Remove">
                             </form>
                         </div>
                     </div>

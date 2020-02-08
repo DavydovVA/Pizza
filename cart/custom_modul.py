@@ -12,9 +12,10 @@ def create_info_for_history(cart):
 
 
 class SendInfo:
-    def __init__(self, pizza_list, total_cart_price, created_at):
+    def __init__(self, pizza_list, total_cart_price, address, created_at):
         self.pizza_list = pizza_list
         self.total_cart_price = total_cart_price
+        self.address = address
         self.created_at = created_at
 
 
