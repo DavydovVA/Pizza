@@ -1,10 +1,11 @@
 from time import time
-
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from os.path import join, dirname, basename
 from pp.utils import TimeAgo
+from random import randint
+import transliterate
 
 
 class Post(models.Model):
@@ -15,11 +16,18 @@ class Post(models.Model):
     class Meta:
         abstract = True
 
+    def custom_save(self):
+        title = transliterate.translit(self.title.lower(), reversed=True)
+        self.slug = slugify(title.replace(' ', '_').replace('-', '_')) + str(int(time()) + randint(1, 100))
+
+        super().save()
+
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title.lower()) + str(int(time()))
+            self.slug = slugify(self.title.lower().replace(' ', '_').replace('-', '_')) + str(
+                int(time()) + randint(1, 100))
 
-        super().save(*args, **kwargs)
+        super().save()
 
     def __str__(self):
         return f'<{self.__class__.__name__}:{self.title}>'
