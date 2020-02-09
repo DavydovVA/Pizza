@@ -7,7 +7,7 @@ import cart.models
 
 MODEL_MAPPING = {
     'pp': pp.models,
-    'accounts': accounts.models.User,
+    'accounts': accounts.models,
     'history': cart.models
 }
 
