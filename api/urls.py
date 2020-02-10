@@ -3,5 +3,6 @@ from api import views
 
 
 urlpatterns = [
-    path('', views.PizzaApi.as_view())
+    path('', views.PizzaApi.as_view()),
+    path(r'users', views.UserApi.as_view())
 ]
