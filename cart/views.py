@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, get_list_or_40
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from cart.cart import Cart
+from cart.cart import Cart, get_cart_len
 from pp.models import Pizza
 from .models import History
 from .forms import *
@@ -81,9 +81,10 @@ class ViewHistory(LoginRequiredMixin, View):
                     pizza_list.append(i.split('\n'))
                 member_list.append(SendInfo(pizza_list, member.total_cart_price, member.address, member.created_at))
 
-            return render(request, 'cart/history.html', context={'member_list': member_list})
+            return render(request, 'cart/history.html',
+                          context={'member_list': member_list, 'cart_len': get_cart_len(request)})
 
-        return render(request, 'cart/history.html', context={'member_list': False})
+        return render(request, 'cart/history.html', context={'member_list': False, 'cart_len': get_cart_len(request)})
 
 
 class ViewCart(LoginRequiredMixin, View):
@@ -97,7 +98,8 @@ class ViewCart(LoginRequiredMixin, View):
 
         user_form = UserForm(initial={'phone_num': user.phone_num, 'address': user.address})
 
-        return render(request, 'cart/view_cart.html', context={'cart': cart, 'user_form': user_form})
+        return render(request, 'cart/view_cart.html',
+                      context={'cart': cart, 'user_form': user_form, 'cart_len': get_cart_len(request)})
 
 
 class RemoveFromCart(View):

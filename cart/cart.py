@@ -62,8 +62,14 @@ class Cart(object):
 
         return round(total_cart_price, 2)
 
+    def __len__(self):
+        return len(self.cart.keys())
+
     def clear(self):
         del self.session[settings.CART_SESSION_ID]
         self.session.modified = True
 
 
+def get_cart_len(request):
+    cart = Cart(request)
+    return len(cart)

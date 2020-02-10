@@ -2,6 +2,7 @@ from django.conf import settings
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.db.models import Q
+from cart.cart import get_cart_len
 
 
 class ListObjectsMixin:
@@ -35,6 +36,7 @@ class ListObjectsMixin:
             self.template_name,
             context={
                 'objects': paginator.get_page(page),
-                'pages': paginator.num_pages
+                'pages': paginator.num_pages,
+                'cart_len': get_cart_len(request)
             }
         )

@@ -4,6 +4,7 @@ from django.views import View
 
 from pp.forms import PizzaForm
 from pp.mixins import ListObjectsMixin
+from cart.cart import get_cart_len
 from pp.models import Pizza
 
 
@@ -21,7 +22,8 @@ class ViewPizza(View):
             request,
             'pp/one_pizza.html',
             context={
-                'pizza': pizza
+                'pizza': pizza,
+                'cart_len': get_cart_len(request)
             }
         )
 
@@ -37,7 +39,8 @@ class CreatePizza(LoginRequiredMixin, View):
             request,
             'pp/create_pizza.html',
             context={
-                'form': form
+                'form': form,
+                'cart_len': get_cart_len(request)
             }
         )
 
@@ -55,6 +58,7 @@ class CreatePizza(LoginRequiredMixin, View):
             request,
             'pp/create_pizza.html',
             context={
-                'form': form
+                'form': form,
+                'cart_len': get_cart_len(request)
             }
         )
