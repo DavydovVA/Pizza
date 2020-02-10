@@ -24,4 +24,5 @@ urlpatterns = [
     path('pp/', include(('pp.urls', 'pp'), namespace='pp')),
     path('', include(('accounts.urls', 'accounts'), namespace='accounts')),
     path('', include(('cart.urls', 'cart'), namespace='cart')),
+    path('api/', include(('api.urls', 'api'), namespace='api')),
 ]
