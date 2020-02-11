@@ -1,5 +1,10 @@
 from django.core.mail import send_mail
 from django.conf import settings
+import smtplib
+import socket
+
+class MailException(smtplib.SMTPException):
+    pass
 
 
 def build_message(his):
@@ -17,6 +22,10 @@ def email(request, his):
     message = build_message(his)
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [request.user.email, ]
-    send_mail(subject, message, email_from, recipient_list)
+
+    try:
+        send_mail(subject, message, email_from, recipient_list, fail_silently=False)
+    except socket.gaierror:
+        return False
 
     return True

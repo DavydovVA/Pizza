@@ -46,7 +46,6 @@ class AcceptOrder(View):
 
         his = History(user=request.user, pizza_list=pizza_list, address=request.user.address,
                       total_cart_price=total_cart_price)
-        his.save()
 
         history_list = his.pizza_list.split('\n\n')[:-1]
         pizza_list = list()
@@ -56,9 +55,11 @@ class AcceptOrder(View):
 
         total_cart_price = cart.get_total_cart_price()
 
-        cart.clear()
+        if not email(request, his):
+            return redirect('cart:view_cart')
 
-        email(request, his)
+        his.save()
+        cart.clear()
 
         return render(request, 'cart/checklist.html',
                       context={'history': his, 'pizza_list': pizza_list, 'total_cart_price': total_cart_price})
