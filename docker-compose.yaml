@@ -1,0 +1,63 @@
+version: "3"
+
+services:
+  posetgres:
+    image: postgres:latest
+    container_name: pizza-db
+    hostname: pizza-database
+    env_file:
+      - develop.env
+    restart: always
+    networks:
+      - pizza-network
+    expose:
+      - 5432
+  pizza:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: pizza
+    hostname: pizza
+    env_file:
+      - develop.env
+    environment:
+      DEBUG: "false"
+      PORT: 8000
+      DB_HOST: "pizza-db"
+    restart: always
+    networks:
+      - pizza-network
+    expose:
+      - 8000
+    ports:
+      - 8000:8000
+    depends_on:
+      - posetgres
+    volumes:
+      - "/var/app/Pizza/static:/static"
+      - "/var/app/Pizza/media:/media"
+      - "/home/volerij/Documents/Pizza:/var/app/fill/Pizza"
+  nginx:
+    build:
+      dockerfile: Dockerfile-nginx
+      context: .
+      args:
+        HOST: pizza
+        PORT: 8000
+    container_name: pizza-nginx
+    networks:
+      - pizza-network
+    ports:
+      - 80:80
+    restart: always
+    volumes:
+      - "/static:/static"
+      - "/media:/media"
+
+networks:
+  pizza-network:
+    driver: bridge
+
+volumes:
+  static:
+  media:

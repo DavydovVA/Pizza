@@ -46,11 +46,12 @@
                 Phone Number: {{ user_form.phone_num }}
             </div>
             <div style="width: 400px; display: inline-block">
-            Address: {{ user_form.address }}
+                Address: {{ user_form.address }}
+            </div>
         </div>
         {% if cart %}
             <input type="submit" class="btn btn-primary" value="{{ cart.get_total_cart_price }}$" style="width: 120px;">
         {% endif %}
-    </form>
+    </form> <br>
 {% endblock %}
 
