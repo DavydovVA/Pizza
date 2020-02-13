@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from email_settings import *
 import dj_database_url
+from custom_settings import service_user_email, service_password_email
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -162,5 +162,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = user_email
-EMAIL_HOST_PASSWORD = password_email
+EMAIL_HOST_USER = service_user_email
+EMAIL_HOST_PASSWORD = service_password_email
