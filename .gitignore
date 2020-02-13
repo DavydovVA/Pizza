@@ -2,6 +2,6 @@
 __pycache__/
 /static/
 /media/
-/custom_settings.py
 /venv/
 /develop.env
+/custom_settings.py
