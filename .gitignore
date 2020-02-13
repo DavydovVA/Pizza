@@ -2,6 +2,6 @@
 __pycache__/
 /static/
 /media/
-/email_settings.py
+/custom_settings.py
 /venv/
 /develop.env
