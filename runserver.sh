@@ -14,9 +14,10 @@ do
     sleep 2
 done
 
-python manage.py flush --noinput
+#python manage.py flush --noinput
 python manage.py migrate
 python manage.py collectstatic --noinput
+python manage.py create_superuser
 python manage.py fill_menu /var/app/fill/Pizza -rus True
 
 python manage.py runserver 0.0.0.0:${PORT}

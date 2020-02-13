@@ -29,10 +29,10 @@ class Command(BaseCommand):
                     if rus == 'True':
                         try:
                             obj.custom_save()
-                        except :
+                        except:
                             self.stderr.write(
                                 self.style.ERROR(
-                                    f'Name \'{os.path.basename(f)}\' contains only roman letters. Using regular save().')
+                                    f'Name \'{os.path.basename(f)}\' contains only roman letters. Using regular save()')
                             )
                             obj.save()
                     else:

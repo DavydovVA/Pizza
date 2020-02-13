@@ -1,4 +1,4 @@
-function memScroll(url, pages, id) {
+function objScroll(url, pages, id) {
     let page = 1;
 
     function scroll() {

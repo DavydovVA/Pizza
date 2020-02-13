@@ -34,8 +34,8 @@ services:
     depends_on:
       - posetgres
     volumes:
-      - "/var/app/Pizza/static:/static"
-      - "/var/app/Pizza/media:/media"
+      - "static:/var/app/Pizza/static"
+      - "media:/var/app/Pizza/media"
       - "/home/volerij/Documents/Pizza:/var/app/fill/Pizza"
   nginx:
     build:
@@ -51,8 +51,8 @@ services:
       - 80:80
     restart: always
     volumes:
-      - "/static:/static"
-      - "/media:/media"
+      - "static:/static"
+      - "media:/media"
 
 networks:
   pizza-network:
