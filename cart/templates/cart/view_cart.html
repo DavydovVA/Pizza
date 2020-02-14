@@ -15,8 +15,13 @@
                     {% with product=item.product %}
                         <div style="height: 60px; margin-left: 5px">Pizza: {{ product.title }}</div>
                         <div style="margin-left: 5px">Price: {{ product.price }}$</div>
-                        <img src="{{ item.image.read|make_src }}" class="card-img-top main-content"
+                        {% if item.image|is_exists %}
+                            <img src="{{ item.image.read|make_src }}" class="card-img-top main-content"
                              style="width: 50%;margin-left: 25%;">
+                        {% else %}
+                            <img src="{% static 'pp/image/not_found.png' %}" class="card-img-top main-content"
+                             style="width: 50%;margin-left: 25%;">
+                        {% endif %}
                     {% endwith %}
                     <form action="{% url "cart:update_quan" item.product.id %}" method="post">
                         {% csrf_token %}
@@ -48,10 +53,13 @@
             <div style="width: 400px; display: inline-block">
                 Address: {{ user_form.address }}
             </div>
+            <div style="display: inline-block">
+                {% if cart %}
+                    <input type="submit" class="btn btn-primary" value="{{ cart.get_total_cart_price }}$"
+                           style="width: 120px;">
+                {% endif %}
+            </div>
         </div>
-        {% if cart %}
-            <input type="submit" class="btn btn-primary" value="{{ cart.get_total_cart_price }}$" style="width: 120px;">
-        {% endif %}
     </form> <br>
 {% endblock %}
 
