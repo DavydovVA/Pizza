@@ -9,11 +9,11 @@
     {% if member_list %}
         {% for item in member_list %}
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 20%">
+                <button class="btn btn-secondary dropdown-toggle history" type="button" id="dropdownMenu2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{ item.created_at }}
                 </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2" style="width: 20%">
+                <div class="dropdown-menu dropdown-menu-right history" aria-labelledby="dropdownMenu2">
                     {% for row in item.pizza_list %}
                         {% for part in row %}
                             {{ part }} <br>

@@ -1,24 +1,17 @@
 {% load image_filters %}
 {% load static %}
 
-<style xmlns="http://www.w3.org/1999/html">
-    img {
-        height: 300px;
-        width: 280px;
-    }
-</style>
 
 {% for pizza in objects %}
     <div class="col mb-4">
-        <div class="card text-white bg-dark">
+        <div class="card card_hover text-white bg-dark">
             {% if pizza.image|is_exists %}
                 <a href="{{ pizza.get_absolute_url }}">
-                    <img src="{{ pizza.image.read|make_src }}" class="card-img-top main-content" style="width: 100%">
+                    <img src="{{ pizza.image.read|make_src }}" class="card-img-top main-content">
                 </a>
             {% else %}
                 <a href="{{ pizza.get_absolute_url }}">
-                    <img src="{% static 'pp/image/not_found.png' %}" class="card-img-top main-content"
-                         style="width: 100%">
+                    <img src="{% static 'pp/image/not_found.png' %}" class="card-img-top main-content">
                 </a>
             {% endif %}
             <div class="card-body">
@@ -26,12 +19,10 @@
                 {% if user.is_authenticated %}
                     <form action="{% url 'cart:add_to_cart' pizza.id %}" method="post">
                         {% csrf_token %}
-                        <input type="submit" class="btn btn-outline-success" value="{{ pizza.price }}$"
-                               style="height: 50px; width: 60%; margin-left: 20%; pointer-events: visible">
+                        <input type="submit" class="add_btn btn btn-outline-success" value="{{ pizza.price }}$">
                     </form>
                 {% else %}
-                    <input type="submit" class="btn btn-outline-success" value="{{ pizza.price }}$"
-                           style="height: 50px; width: 60%; margin-left: 20%; pointer-events: visible">
+                    <input type="submit" class="add_btn btn btn-outline-success" value="{{ pizza.price }}$">
                 {% endif %}
             </div>
         </div>

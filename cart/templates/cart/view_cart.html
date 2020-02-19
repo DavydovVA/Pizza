@@ -11,35 +11,34 @@
     <div class="row row-cols-1 row-cols-md-3">
         {% for item in cart %}
             <div class="col mb-4">
-                <div class="card h-100 noHover" style="width: 70%; margin-left: 20%;">
+                <div class="card h-100 cart_card">
                     {% with product=item.product %}
-                        <div style="height: 60px; margin-left: 5px">Pizza: {{ product.title }}</div>
-                        <div style="margin-left: 5px">Price: {{ product.price }}$</div>
+                        <div class="cart_title left_five_px">Pizza: {{ product.title }}</div>
+                        <div class="left_five_px">Price: {{ product.price }}$</div>
                         {% if item.image|is_exists %}
-                            <img src="{{ item.image.read|make_src }}" class="card-img-top main-content"
-                             style="width: 50%;margin-left: 25%;">
+                            <img src="{{ item.image.read|make_src }}" class="cart_img card-img-top main-content">
                         {% else %}
-                            <img src="{% static 'pp/image/not_found.png' %}" class="card-img-top main-content"
-                             style="width: 50%;margin-left: 25%;">
+                            <img src="{% static 'pp/image/not_found.png' %}" class="cart_img card-img-top main-content">
                         {% endif %}
                     {% endwith %}
+
                     <form action="{% url "cart:update_quantity" item.product.id %}" method="post">
                         {% csrf_token %}
-                        <p style="width: 60px; pointer-events: visible; margin-left: 5px">
-                            Quantity {{ item.pizza_form.quantity }}</p>
+                        <p class="cart_item_q left_five_px">Quantity {{ item.pizza_form.quantity }}</p>
                     </form>
+
                     <div>
-                        <div style="display: inline-block; width: 50%; margin-left: 5px;">Sum: {{ item.total_price }}$
+                        <div class="cart_item_tp left_five_px" style="display: inline-block;">
+                            Sum: {{ item.total_price }}$
                         </div>
-                        <div style="display: inline-block; width: 15%">
-                            <form action="{% url "cart:remove" item.product.id %}" method="post"
-                                  style="margin-left: 65%; margin-bottom: 10px;">
+                        <div class="cart_rm_div" style="display: inline-block;">
+                            <form action="{% url "cart:remove" item.product.id %}" method="post" class="cart_rm_form">
                                 {% csrf_token %}
-                                <input type="submit" class="btn btn-danger" style="pointer-events: visible;"
-                                       value="Remove">
+                                <input type="submit" class="btn btn-danger" value="Remove">
                             </form>
                         </div>
                     </div>
+
                 </div>
             </div>
         {% endfor %}

@@ -19,12 +19,10 @@
             {% if user.is_authenticated %}
                 <form action="{% url 'cart:add_to_cart' pizza.id %}" method="post">
                     {% csrf_token %}
-                    <input type="submit" class="btn btn-outline-success" value="{{ pizza.price }}$"
-                           style="height: 50px; width: 60%; margin-left: 20%; pointer-events: visible">
+                    <input type="submit" class="add_btn btn btn-outline-success" value="{{ pizza.price }}$">
                 </form>
             {% else %}
-                    <input type="submit" class="btn btn-outline-success" value="{{ pizza.price }}$"
-                           style="height: 50px; width: 60%; margin-left: 20%; pointer-events: visible">
+                    <input type="submit" class="add_btn btn btn-outline-success" value="{{ pizza.price }}$">
             {% endif %}
             <h5 class="card-title" align="left" style="margin-top: 10px;">Описание:</h5>
             <p class="card-text">{{ pizza.body }}</p>

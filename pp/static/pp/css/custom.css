@@ -1,3 +1,4 @@
+/* pizza-cards body */
 .body {
     width: 65%;
     margin-top: 10px;
@@ -12,26 +13,15 @@
     margin-left: 25%;
 }
 
-.card:hover {
+.card_hover:hover {
     cursor: pointer;
     box-shadow: 10px 10px 10px grey;
 }
-.noHover{
-    pointer-events: none;
-}
-.spinner {
-    text-align: center;
-    display: none;
 
-}
-
+/**/
 .main-content {
     height: auto;
-    width: auto;
-}
-
-img {
-    height: auto;
+    width: 100%;
 }
 
 .a-card {
@@ -48,7 +38,55 @@ img {
     margin-right: 20px;
 }
 
-.hover {
+/* buttons */
+.add_btn {
+    height: 50px;
+    width: 60%;
+    margin-left: 20%;
+    pointer-events: visible;
+}
+
+.add_btn:hover {
     cursor: pointer;
-    box-shadow: 10px 10px 10px grey;
+    box-shadow: 10px 10px 10px black;
+}
+
+/* cart */
+.cart_img {
+    width: 50%;
+    margin-left: 25%;
+}
+
+.cart_rm_form {
+    margin-left: 65%;
+    margin-bottom: 10px;
+}
+.cart_rm_div {
+    width: 15%;
+}
+
+.cart_item_tp {
+    width: 50%;
+}
+
+.cart_item_q {
+    width: 25%;
+}
+
+.cart_card {
+    width: 70%;
+    margin-left: 20%;
+}
+
+.cart_title {
+    height: 60px;
+}
+
+.left_five_px {
+    margin-left: 5px;
+}
+
+/* history dropdown */
+.history {
+    width: 20%;
 }

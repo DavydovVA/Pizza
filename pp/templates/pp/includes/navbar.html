@@ -32,7 +32,6 @@
                    value="{{ request.GET.search }}">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-
         {% if not user.is_authenticated %}
             <div>
                 <button class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="modal"
@@ -55,6 +54,5 @@
                 <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
             </form>
         {% endif %}
-
     </div>
 </nav>
