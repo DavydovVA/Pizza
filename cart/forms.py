@@ -16,7 +16,7 @@ class PizzaForm(forms.Form):
                 raise ValidationError('Price must contain only numeric characters.')
 
         if len(quantity) > 2:
-            raise ValidationError('Price must contain only numeric characters.')
+            raise ValidationError('Too big quantity.')
 
         return quantity
 

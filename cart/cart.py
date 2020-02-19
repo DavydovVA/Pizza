@@ -2,7 +2,7 @@ from pp.models import Pizza as Product
 from Pizza import settings
 
 
-class Cart(object):
+class Cart:
     def __init__(self, request):
         self.session = request.session
         cart = self.session.get(settings.CART_SESSION_ID)
@@ -71,5 +71,7 @@ class Cart(object):
 
 
 def get_cart_len(request):
+    """returns amount products in current cart"""
     cart = Cart(request)
+
     return len(cart)

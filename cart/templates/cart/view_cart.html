@@ -23,7 +23,7 @@
                              style="width: 50%;margin-left: 25%;">
                         {% endif %}
                     {% endwith %}
-                    <form action="{% url "cart:update_quan" item.product.id %}" method="post">
+                    <form action="{% url "cart:update_quantity" item.product.id %}" method="post">
                         {% csrf_token %}
                         <p style="width: 60px; pointer-events: visible; margin-left: 5px">
                             Quantity {{ item.pizza_form.quantity }}</p>

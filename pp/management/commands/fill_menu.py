@@ -30,6 +30,7 @@ class Command(BaseCommand):
                         try:
                             obj.custom_save()
                         except:
+                            # ???
                             self.stderr.write(
                                 self.style.ERROR(
                                     f'Name \'{os.path.basename(f)}\' contains only roman letters. Using regular save()')

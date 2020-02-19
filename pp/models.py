@@ -3,7 +3,6 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from os.path import join, dirname, basename
-from pp.utils import TimeAgo
 from random import randint
 import transliterate
 
@@ -17,12 +16,14 @@ class Post(models.Model):
         abstract = True
 
     def custom_save(self, *args, **kwargs):
+        """used by fill_menu, if names contains rus chars"""
         title = transliterate.translit(self.title.lower(), reversed=True)
         self.slug = slugify(title.replace(' ', '_').replace('-', '_')) + str(int(time()) + randint(1, 100))
 
         super().save(*args, **kwargs)
 
     def save(self, *args, **kwargs):
+        """base save"""
         if not self.slug:
             self.slug = slugify(self.title.lower().replace(' ', '_').replace('-', '_')) + str(
                 int(time()) + randint(1, 100))
@@ -31,9 +32,6 @@ class Post(models.Model):
 
     def __str__(self):
         return f'<{self.__class__.__name__}:{self.title}>'
-
-    def get_created_at(self):
-        return TimeAgo.get_time_ago(self.created_at)
 
     @staticmethod
     def upload_to(instance, filename):
