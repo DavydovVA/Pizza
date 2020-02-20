@@ -33,32 +33,42 @@ class CreatePizza(LoginRequiredMixin, View):
 
     @staticmethod
     def get(request):
-        form = PizzaForm()
+        user = request.user
 
-        return render(
-            request,
-            'pp/create_pizza.html',
-            context={
-                'form': form,
-                'cart_len': get_cart_len(request)
-            }
-        )
+        if user.is_staff:
+            form = PizzaForm()
+
+            return render(
+                request,
+                'pp/create_pizza.html',
+                context={
+                    'form': form,
+                    'cart_len': get_cart_len(request)
+                }
+            )
+
+        return redirect('pp:index')
 
     @staticmethod
     def post(request):
-        form = PizzaForm(request.POST, request.FILES)
+        user = request.user
 
-        if form.is_valid():
-            pizza = form.save()
-            pizza.save()
+        if user.is_staff:
+            form = PizzaForm(request.POST, request.FILES)
 
-            return redirect(pizza)
+            if form.is_valid():
+                pizza = form.save()
+                pizza.save()
 
-        return render(
-            request,
-            'pp/create_pizza.html',
-            context={
-                'form': form,
-                'cart_len': get_cart_len(request)
-            }
-        )
+                return redirect(pizza)
+
+            return render(
+                request,
+                'pp/create_pizza.html',
+                context={
+                    'form': form,
+                    'cart_len': get_cart_len(request)
+                }
+            )
+
+        return redirect('pp:index')
