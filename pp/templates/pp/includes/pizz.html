@@ -19,7 +19,7 @@
                 {% if user.is_authenticated %}
                     <form action="{% url 'cart:add_to_cart' pizza.id %}" method="post">
                         {% csrf_token %}
-                        <input type="submit" class="add_btn btn btn-outline-success" value="{{ pizza.price }}$">
+                        <input name="price" type="submit" class="add_btn btn btn-outline-success" value="{{ pizza.price }}$">
                     </form>
                 {% else %}
                     <input type="submit" class="add_btn btn btn-outline-success" value="{{ pizza.price }}$">

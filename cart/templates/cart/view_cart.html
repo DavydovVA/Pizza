@@ -54,7 +54,7 @@
             </div>
             <div style="display: inline-block">
                 {% if cart %}
-                    <input type="submit" class="btn btn-primary" value="{{ cart.get_total_cart_price }}$"
+                    <input name="total_price" type="submit" class="btn btn-primary" value="{{ cart.get_total_cart_price }}$"
                            style="width: 120px;">
                 {% endif %}
             </div>

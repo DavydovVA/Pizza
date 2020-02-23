@@ -17,7 +17,7 @@
             {% endif %}
             {% if user.is_authenticated %}
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'cart:order' %}">History<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{% url 'cart:order' %}" id="his">History<span class="sr-only">(current)</span></a>
                 </li>
                 <div style="width: 100px;">
                     <li class="nav-item active">
@@ -28,14 +28,14 @@
             {% endif %}
         </ul>
         <form class="form-inline my-2 my-lg-0 search-field" method="get">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search"
+            <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
                    value="{{ request.GET.search }}">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
         {% if not user.is_authenticated %}
             <div>
                 <button class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="modal"
-                        data-target="#loginModal">Login
+                        data-target="#loginModal" name="login">Login
                 </button>
                 {% include 'accounts/includes/modal.html' with type='login' %}
                 <button class="btn btn-outline-warning my-2 my-sm-0" type="button" data-toggle="modal"
@@ -51,7 +51,7 @@
             </ul>
             <form class="form-inline my-2 my-lg-0" action="{% url 'accounts:logout' %}" method="post">
                 {% csrf_token %}
-                <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
+                <button name="logout" class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
             </form>
         {% endif %}
     </div>
